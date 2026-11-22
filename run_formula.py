@@ -34,19 +34,22 @@ def run_formula(formula, initial_row, extra_info=False):
         rows.append(row)
 
     print_row(row)
-    print("\nfound", len(rows), "rows.")
+    print("found", len(rows), "rows.")
 
     if extra_info:
         print("note frequencies:")
-        for i in range(12):
+        for i in range(row.modulus):
             occurences = 0
             for row in rows:
                 occurences += row.count(i)
-            perc = occurences / (12 * len(rows)) * 100
+            perc = occurences / (row.modulus * len(rows)) * 100
             print(f"    {i:>2}: {occurences} ({perc:.0f}%)")
 
-        print("\nvalid rows:")
-        for row in rows:
-            if row.valid():
-                print(f"    {row}")
+        # print("\nvalid rows:")
+        # for row in rows:
+        #     if row.valid():
+        #         print(f"    {row}")
+
+    # return final row
+    return row
 
