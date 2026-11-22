@@ -1,11 +1,11 @@
 NOTES = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
 
 class ToneRow:
-    def __init__(self, *indexes):
+    def __init__(self, *indexes, modulus=12):
         for i in indexes:
             assert type(i) is int
         self.indexes = indexes
-        self.modulus = 12
+        self.modulus = modulus
 
     def __len__(self):
         return len(self.indexes)
@@ -42,7 +42,7 @@ class ToneRow:
 
     def i(self):
         # inversion
-        return __class__(*[11-i for i in self.indexes])
+        return __class__(*[self.modulus-1-i for i in self.indexes])
 
     def ri(self):
         # retrograde inversion
