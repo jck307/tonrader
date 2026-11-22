@@ -2,7 +2,7 @@ from tonrader import *
 
 def formula(row):
     # play around with this!
-    row = row.cycle(1)
+    row = row.rotate(1)
     row = row.part(2, 0).merge(row.part(2, 1), "ba")
     row = row.ri()
     return row

@@ -52,7 +52,7 @@ class Row:
         # retrograde inversion
         return self.r().i()
 
-    def cycle(self, count):
+    def rotate(self, count):
         count = count % len(self)
         return self.derive((self.indexes[len(self)-count:] + self.indexes[:len(self)-count]))
 
