@@ -1,5 +1,3 @@
-NOTES = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
-
 class ToneRow:
     def __init__(self, *indexes, modulus=12):
         for i in indexes:
@@ -34,7 +32,10 @@ class ToneRow:
         return self.indexes.count(n)
 
     def valid(self):
-        return len(NOTES ^ set(self.indexes)) == 0
+        for i in range(self.modulus):
+            if i not in self.indexes:
+                return False
+        return len(self) == self.modulus
 
     def r(self):
         # retrograde

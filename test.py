@@ -4,8 +4,6 @@ def formula(row):
     # play around with this!
     row = row.cycle(1)
     row = row.part(2, 0).merge(row.part(2, 1), "baab")
-    row = row.i() * 5
-    row = row.part(2, 0).merge(row.part(2, 1), "ab")
     return row
 
 RESET = '\x1b[0m'
@@ -15,6 +13,7 @@ BOLD = '\x1b[1m'
 TEXT_STYLE = FG_BLACK + BOLD
 CONTRAST = 18
 MAX_ROWS = 500
+NOTES = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
 INITIAL_ROW = (0, 8, 5, 1, 6, 3, 10, 2, 7, 9, 4, 11)
 
 def print_row(row):
