@@ -36,6 +36,8 @@ def run_formula(formula, initial_row, extra_info=False):
     print_row(row)
     print("found", len(rows), "rows.")
 
+    repeated_row = row
+
     if extra_info:
         print("note frequencies:")
         for i in range(row.modulus):
@@ -50,6 +52,5 @@ def run_formula(formula, initial_row, extra_info=False):
         #     if row.valid():
         #         print(f"    {row}")
 
-    # return final row
-    return row
+    return repeated_row
 

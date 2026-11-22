@@ -1,8 +1,8 @@
 from tonrader import *
 from run_formula import run_formula
 
-modulus = 6
-row = Row(0, 1, 2, 3, 4, 5, modulus=modulus)
+row = Row(0, 8, 5, 1, 6, 3, 10, 2, 7, 9, 4, 11)
+# row = Row(0, 1, 2, 3, 4, 5, modulus=6)
 
 def formula(row):
     row *= 2
@@ -12,5 +12,5 @@ def formula(row):
 for _ in range(3):
     print("running...")
     row = run_formula(formula, row, extra_info=True)
-    row = row.i().normalize()
+    row = row.i()
 
