@@ -1,19 +1,22 @@
-class ToneRow:
+class Row:
     def __init__(self, *indexes, modulus=12):
         for i in indexes:
             assert type(i) is int
         self.indexes = indexes
         self.modulus = modulus
 
+    def derive(self, indexes):
+        return __class__(*indexes, modulus=self.modulus)
+
     def __len__(self):
         return len(self.indexes)
 
     def __mul__(self, factor):
-        return __class__(*[(i * factor) % self.modulus for i in self.indexes])
+        return self.derive([(i * factor) % self.modulus for i in self.indexes])
 
     def __add__(self, rhs):
         if type(rhs) is int:
-            return __class__(*[(i + rhs) % self.modulus for i in self.indexes])
+            return self.derive([(i + rhs) % self.modulus for i in self.indexes])
         elif type(rhs) is __class__:
             return self.join(rhs)
         else:
@@ -39,11 +42,11 @@ class ToneRow:
 
     def r(self):
         # retrograde
-        return __class__(*reversed(self.indexes))
+        return self.derive(reversed(self.indexes))
 
     def i(self):
         # inversion
-        return __class__(*[self.modulus-1-i for i in self.indexes])
+        return self.derive([self.modulus-1-i for i in self.indexes])
 
     def ri(self):
         # retrograde inversion
@@ -51,13 +54,13 @@ class ToneRow:
 
     def cycle(self, count):
         count = count % len(self)
-        return __class__(*(self.indexes[len(self)-count:] + self.indexes[:len(self)-count]))
+        return self.derive((self.indexes[len(self)-count:] + self.indexes[:len(self)-count]))
 
     def normalize(self):
         return self + (-self[0])
 
     def join(self, other):
-        return __class__(*(self.indexes + other.indexes))
+        return self.derive((self.indexes + other.indexes))
 
     def merge(self, other, mode):
         assert len(self) == len(other)
@@ -75,7 +78,7 @@ class ToneRow:
                 case "b":
                     result.append(other[other_i])
                     other_i += 1
-        return __class__(*result)
+        return self.derive(result)
 
     def split(self, divisions):
         parts = []
@@ -87,5 +90,5 @@ class ToneRow:
         assert len(self) % divisions == 0
         part_len = int(len(self) / divisions)
         start = n*part_len
-        return __class__(*self.indexes[start:start+part_len])
+        return self.derive(self.indexes[start:start+part_len])
 
